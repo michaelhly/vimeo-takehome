@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import propTypes from "prop-types";
+
 import Description from "../Description";
 import SlideNav from "./SlideNav";
 
@@ -39,6 +41,26 @@ const Slide = props => {
 
 export default Slide;
 
+Slide.propTypes = {
+  currSlide: propTypes.oneOf([
+    propTypes.string,
+    propTypes.string,
+    propTypes.string,
+    propTypes.array
+  ]).isRequired,
+  windowWidth: propTypes.number.isRequired
+};
+
+const Background = styled.div`
+  position: absolute;
+  background-image: url(${props => props.image});
+  background-size: 100% 100%;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  opacity: 0.2;
+`;
+
 const SlideContainer = styled.div`
   position: absolute;
   z-index: 2;
@@ -54,7 +76,7 @@ const ActionItems = props => {
   return (
     <div className="field is-grouped" style={styles}>
       <p className="control">
-        <a className="button" href="https://">
+        <a className="button" href="https://vimeo.com/errorpage">
           Buy Now
         </a>
       </p>
@@ -67,12 +89,7 @@ const ActionItems = props => {
   );
 };
 
-const Background = styled.div`
-  position: absolute;
-  background-image: url(${props => props.image});
-  background-size: 100% 100%;
-  height: 100%;
-  width: 100%;
-  z-index: 1;
-  opacity: 0.2;
-`;
+ActionItems.propTypes = {
+  isMobile: propTypes.bool.isRequired,
+  videoLink: propTypes.string.isRequired
+};
