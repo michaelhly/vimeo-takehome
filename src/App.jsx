@@ -19,17 +19,22 @@ const backgroundStyles = {
 };
 
 const App = () => {
-  const [primaryVideo, setPrimaryVideo] = useState(null);
-  const [secondaryVideos, setSecondaryVideos] = useState([]);
-  const [carouselVideos, setCarouselVideos] = useState([]);
+  const [primaryAssets, setPrimaryAssets] = useState(null);
+  const [secondaryAssets, setSecondaryAssets] = useState([]);
+  const [carouselAssets, setCarouselAssets] = useState([]);
+
   useEffect(() => {
     const fetchVideoAssets = async () => {
-      const primaryAssets = await getVideoAssetsAsync(PrimaryId);
-      const secondaryAssets = await getVideoAssetsBatchedAsync(SecondaryIds);
-      const carouselAssets = await getVideoAssetsBatchedAsync(CarouselIds);
-      setCarouselVideos(carouselAssets);
-      setPrimaryVideo(primaryAssets);
-      setSecondaryVideos(secondaryAssets);
+      const fetchedPrimaryAssets = await getVideoAssetsAsync(PrimaryId);
+      const fetchedSecondaryAssets = await getVideoAssetsBatchedAsync(
+        SecondaryIds
+      );
+      const fetchedCarouselAssets = await getVideoAssetsBatchedAsync(
+        CarouselIds
+      );
+      setCarouselAssets(fetchedCarouselAssets);
+      setPrimaryAssets(fetchedPrimaryAssets);
+      setSecondaryAssets(fetchedSecondaryAssets);
     };
     fetchVideoAssets();
   }, []);
@@ -37,21 +42,20 @@ const App = () => {
   return (
     <>
       <div className="container">
-        {primaryVideo === null ? (
+        {primaryAssets === null ? (
           <LoadingIcon />
         ) : (
           <MediaObject
             orientation={OrientationEnums.LEFT}
-            textColor="black"
-            title={primaryVideo.name}
-            subtext={primaryVideo.description}
-            videoId={primaryVideo.id}
+            title={primaryAssets.name}
+            subtext={primaryAssets.description}
+            videoId={primaryAssets.id}
           />
         )}
       </div>
       <div className="background" style={backgroundStyles}>
         <div className="container" style={{ paddingTop: "32px" }}>
-          {secondaryVideos.map((media, i) => {
+          {secondaryAssets.map((media, i) => {
             return (
               <MediaObject
                 orientation={

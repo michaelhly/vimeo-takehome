@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import propTypes from "prop-types";
 
 import { OrientationEnums } from "../../enums";
+import { windowResizeListener } from "../../helpers";
 
-import Description from "./Description";
+import Description from "../Description";
 import Video from "./Video";
 
 const MediaObject = props => {
@@ -15,11 +16,7 @@ const MediaObject = props => {
     const handleWindowResize = () => {
       setWindowWidth(window.innerWidth);
     };
-
-    window.addEventListener("resize", handleWindowResize);
-    return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
+    windowResizeListener(window, handleWindowResize);
   }, []);
 
   return (
@@ -59,17 +56,14 @@ const MediaObject = props => {
 export default MediaObject;
 
 MediaObject.defaultProps = {
-  orientation: true,
-  subtext: true,
-  textColor: true,
-  title: true,
-  videoId: true
+  orientation: OrientationEnums.RIGHT,
+  textColor: "black"
 };
 
 MediaObject.propTypes = {
   orientation: propTypes.number,
-  subtext: propTypes.string,
+  subtext: propTypes.string.isRequired,
   textColor: propTypes.string,
-  title: propTypes.string,
-  videoId: propTypes.string
+  title: propTypes.string.isRequired,
+  videoId: propTypes.string.isRequired
 };

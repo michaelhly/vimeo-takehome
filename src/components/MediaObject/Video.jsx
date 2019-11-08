@@ -20,12 +20,7 @@ const Video = props => {
 
 export default Video;
 
-Video.defaultProps = {
-  title: true,
-  videoId: true
-};
-
 Video.propTypes = {
-  title: propTypes.string,
-  videoId: propTypes.string
+  title: propTypes.string.isRequired,
+  videoId: propTypes.string.isRequired
 };
