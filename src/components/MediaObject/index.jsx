@@ -1,9 +1,8 @@
 import React from "react";
 import propTypes from "prop-types";
 
-import OrientationEnums from "../enums";
+import { OrientationEnums } from "../../enums";
 
-import "./MediaObject.sass";
 import Description from "./Description";
 import Video from "./Video";
 

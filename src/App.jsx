@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
 import MediaObject from "./components/MediaObject";
 
-import OrientationEnums from "./enums";
-import { Primary, Secondaries } from "./videos.json";
+import { OrientationEnums } from "./enums";
+import { CarouselIds, PrimaryId, SecondaryIds } from "./videoIds.json";
+import {
+  getVideoAssetsAsync,
+  getVideoAssetsBatchedAsync
+} from "./vimeoClientHelpers";
+import LoadingIcon from "./LoadingIcon";
 
 const backgroundStyles = {
   backgroundImage: "linear-gradient(black, grey, transparent)",
@@ -13,29 +19,48 @@ const backgroundStyles = {
 };
 
 const App = () => {
+  const [primaryVideo, setPrimaryVideo] = useState(null);
+  const [secondaryVideos, setSecondaryVideos] = useState([]);
+  const [carouselVideos, setCarouselVideos] = useState([]);
+  useEffect(() => {
+    const fetchVideoAssets = async () => {
+      const primaryAssets = await getVideoAssetsAsync(PrimaryId);
+      const secondaryAssets = await getVideoAssetsBatchedAsync(SecondaryIds);
+      const carouselAssets = await getVideoAssetsBatchedAsync(CarouselIds);
+      setCarouselVideos(carouselAssets);
+      setPrimaryVideo(primaryAssets);
+      setSecondaryVideos(secondaryAssets);
+    };
+    fetchVideoAssets();
+  }, []);
+
   return (
     <>
       <div className="container">
-        <MediaObject
-          orientation={OrientationEnums.LEFT}
-          textColor="black"
-          title={Primary.title}
-          subtext={Primary.subtext}
-          videoId={Primary.videoId}
-        />
+        {primaryVideo === null ? (
+          <LoadingIcon />
+        ) : (
+          <MediaObject
+            orientation={OrientationEnums.LEFT}
+            textColor="black"
+            title={primaryVideo.name}
+            subtext={primaryVideo.description}
+            videoId={primaryVideo.id}
+          />
+        )}
       </div>
       <div className="background" style={backgroundStyles}>
         <div className="container" style={{ paddingTop: "32px" }}>
-          {Secondaries.map((media, i) => {
+          {secondaryVideos.map((media, i) => {
             return (
               <MediaObject
                 orientation={
                   i % 2 === 0 ? OrientationEnums.RIGHT : OrientationEnums.LEFT
                 }
                 textColor="white"
-                title={media.title}
-                subtext={media.subtext}
-                videoId={media.videoId}
+                title={media.name}
+                subtext={media.description}
+                videoId={media.id}
               />
             );
           })}

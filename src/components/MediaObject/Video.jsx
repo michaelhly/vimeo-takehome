@@ -11,6 +11,8 @@ const Video = props => {
         width="100%"
         height="250px"
         frameBorder="0"
+        allow="autoplay; fullscreen"
+        allowFullScreen
       />
     </section>
   );
