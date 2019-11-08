@@ -2,10 +2,12 @@ import React, { useEffect, useReducer, useState } from "react";
 import propTypes from "prop-types";
 import styled from "styled-components";
 
-import reducer from "./carouselReducer";
 import LoadingIcon from "../../LoadingIcon";
-import Slide from "./Slide";
 import { windowResizeListener } from "../../helpers";
+
+import reducer from "./carouselReducer";
+import Slide from "./Slide";
+import SlideNav from "./SlideNav";
 
 const Carousel = props => {
   const { carouselAssets } = props;
@@ -25,10 +27,13 @@ const Carousel = props => {
         {carouselAssets.length === 0 ? (
           <LoadingIcon />
         ) : (
-          <Slide
-            currSlide={carouselAssets[currIdx]}
-            windowWidth={windowWidth}
-          />
+          <>
+            <Slide
+              currSlide={carouselAssets[currIdx]}
+              windowWidth={windowWidth}
+            />
+            <SlideNav dispatch={dispatch} totalSlides={carouselAssets.length} />
+          </>
         )}
       </CarouselWrapper>
     </section>

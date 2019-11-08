@@ -2,13 +2,13 @@ import React from "react";
 import propTypes from "prop-types";
 import styled from "styled-components";
 
-import { OrientationEnums } from "../../enums";
+import { OrientationEnums, navigationEnums } from "../../enums";
 
-const SlideNav = () => {
+const SlideNav = props => {
   return (
     <NavWrapper>
-      <NavArrow orientation={OrientationEnums.LEFT} />
-      <NavArrow orientation={OrientationEnums.RIGHT} />
+      <NavArrow orientation={OrientationEnums.LEFT} slideProps={props} />
+      <NavArrow orientation={OrientationEnums.RIGHT} slideProps={props} />
     </NavWrapper>
   );
 };
@@ -28,6 +28,7 @@ const ArrowLinkWrapper = styled.a`
   position: absolute;
   z-index: 3;
   top: 50%;
+  border: None;
   transform: translateY(-50%);
   padding: 0.625rem;
   display: inline-block;
@@ -38,15 +39,24 @@ const ArrowLinkWrapper = styled.a`
 `;
 
 const NavArrow = props => {
-  const { orientation } = props;
+  const { orientation, slideProps } = props;
+  const { dispatch, totalSlides } = slideProps;
   const arrowDirection =
     orientation === OrientationEnums.LEFT
       ? "fa-chevron-left"
       : "fa-chevron-right";
   const alignmentDirection =
     orientation === OrientationEnums.LEFT ? "left" : "right";
+  const navigation = OrientationEnums.LEFT
+    ? navigationEnums.BACK
+    : navigationEnums.NEXT;
   return (
-    <ArrowLinkWrapper direction={alignmentDirection}>
+    <ArrowLinkWrapper
+      direction={alignmentDirection}
+      onClick={() => {
+        dispatch({ type: navigation, totalSlides });
+      }}
+    >
       <span className="icon">
         <i className={`fas ${arrowDirection}`} />
       </span>
@@ -55,5 +65,8 @@ const NavArrow = props => {
 };
 
 NavArrow.propTypes = {
-  orientation: propTypes.number.isRequired
+  orientation: propTypes.number.isRequired,
+  slideProps: propTypes.objectOf(
+    propTypes.oneOfType([propTypes.func, propTypes.number])
+  ).isRequired
 };

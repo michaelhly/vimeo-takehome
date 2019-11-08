@@ -3,7 +3,6 @@ import styled from "styled-components";
 import propTypes from "prop-types";
 
 import Description from "../Description";
-import SlideNav from "./SlideNav";
 
 const Slide = props => {
   const { currSlide, windowWidth } = props;
@@ -34,7 +33,6 @@ const Slide = props => {
           </div>
         </div>
       </SlideContainer>
-      <SlideNav />
     </>
   );
 };

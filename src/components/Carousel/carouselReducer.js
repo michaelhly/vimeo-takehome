@@ -1,13 +1,14 @@
-import { SlideEnums } from "../../enums";
+import { navigationEnums } from "../../enums";
 
-const reducer = (currIndex, action, totalSlides) => {
-  switch (action) {
+const reducer = (currIndex, action) => {
+  const { type, totalSlides } = action;
+  switch (type) {
+    case navigationEnums.NEXT:
+      return (currIndex + 1) % totalSlides;
+    case navigationEnums.BACK:
+      return (currIndex - 1) % totalSlides;
     default:
       return currIndex;
-    case SlideEnums.NEXT:
-      return (currIndex + 1) % totalSlides;
-    case SlideEnums.BACK:
-      return (currIndex - 1) % totalSlides;
   }
 };
 
