@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 
+import Carousel from "./components/Carousel";
 import MediaObject from "./components/MediaObject";
 
 import { OrientationEnums } from "./enums";
@@ -41,6 +42,7 @@ const App = () => {
 
   return (
     <>
+      <Carousel carouselAssets={carouselAssets} />
       <div className="container">
         {primaryAssets === null ? (
           <LoadingIcon />
