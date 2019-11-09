@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, useState } from "react";
 import propTypes from "prop-types";
 import styled from "styled-components";
 
-import LoadingIcon from "../../LoadingIcon";
+import LoadingIcon from "../LoadingIcon";
 import { windowResizeListener } from "../../helpers";
 
 import reducer from "./carouselReducer";

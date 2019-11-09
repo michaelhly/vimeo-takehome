@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import Carousel from "./components/Carousel";
+import LoadingIcon from "./components/LoadingIcon";
 import MediaObject from "./components/MediaObject";
 
 import { OrientationEnums } from "./enums";
@@ -9,7 +10,6 @@ import {
   getVideoAssetsAsync,
   getVideoAssetsBatchedAsync
 } from "./vimeoClientHelpers";
-import LoadingIcon from "./LoadingIcon";
 
 const backgroundStyles = {
   backgroundImage: "linear-gradient(black, grey, transparent)",
