@@ -42,15 +42,20 @@ const Carousel = props => {
 
 export default Carousel;
 
+Carousel.defaultProps = {
+  carouselAssets: []
+};
+
 Carousel.propTypes = {
   carouselAssets: propTypes.arrayOf(
-    propTypes.oneOfType([
-      propTypes.string,
-      propTypes.string,
-      propTypes.string,
-      propTypes.array
-    ])
-  ).isRequired
+    propTypes.shape({
+      id: propTypes.string.isRequired,
+      description: propTypes.string.isRequired,
+      link: propTypes.string.isRequired,
+      name: propTypes.string.isRequired,
+      pictures: propTypes.array.isRequired
+    })
+  )
 };
 
 const CarouselWrapper = styled.div`

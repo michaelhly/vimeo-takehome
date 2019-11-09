@@ -66,7 +66,8 @@ const NavArrow = props => {
 
 NavArrow.propTypes = {
   orientation: propTypes.number.isRequired,
-  slideProps: propTypes.objectOf(
-    propTypes.oneOfType([propTypes.func, propTypes.number])
-  ).isRequired
+  slideProps: propTypes.shape({
+    dispatch: propTypes.func.isRequired,
+    totalSlides: propTypes.number.isRequired
+  }).isRequired
 };
