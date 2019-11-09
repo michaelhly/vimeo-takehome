@@ -60,6 +60,7 @@ const App = () => {
           {secondaryAssets.map((media, i) => {
             return (
               <MediaObject
+                key={media.name}
                 orientation={
                   i % 2 === 0 ? OrientationEnums.RIGHT : OrientationEnums.LEFT
                 }

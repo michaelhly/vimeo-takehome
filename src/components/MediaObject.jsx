@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import propTypes from "prop-types";
 
-import { OrientationEnums } from "../../enums";
-import { windowResizeListener } from "../../helpers";
+import { OrientationEnums } from "../enums";
+import { windowResizeListener } from "../helpers";
 
-import Description from "../Description";
-import Video from "./Video";
+import Description from "./Description";
 
 const MediaObject = props => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -65,5 +64,31 @@ MediaObject.propTypes = {
   subtext: propTypes.string.isRequired,
   textColor: propTypes.string,
   title: propTypes.string.isRequired,
+  videoId: propTypes.string.isRequired
+};
+
+const Video = props => {
+  const { title, videoId } = props;
+  return (
+    <section className="section">
+      <iframe
+        src={`https://player.vimeo.com/video/${videoId}`}
+        title={title}
+        width="100%"
+        height="250px"
+        frameBorder="0"
+        allow="autoplay; fullscreen"
+        allowFullScreen
+      />
+    </section>
+  );
+};
+
+Video.defaultProps = {
+  title: null
+};
+
+Video.propTypes = {
+  title: propTypes.string,
   videoId: propTypes.string.isRequired
 };
