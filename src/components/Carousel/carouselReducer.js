@@ -6,7 +6,7 @@ const reducer = (currIndex, action) => {
     case navigationEnums.NEXT:
       return (currIndex + 1) % totalSlides;
     case navigationEnums.BACK:
-      return (currIndex - 1) % totalSlides;
+      return (currIndex - 1 + totalSlides) % totalSlides;
     default:
       return currIndex;
   }

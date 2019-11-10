@@ -17,24 +17,15 @@ export default SlideNav;
 
 const NavWrapper = styled.div`
   position: relative;
-  z-index: 3;
-  max-width: 100.625rem;
   height: 100%;
-  pointer-events: none;
   margin: 0 3.4374rem;
+  z-index: 3;
 `;
 
 const ArrowLinkWrapper = styled.a`
   position: absolute;
-  z-index: 3;
   top: 50%;
-  border: None;
-  transform: translateY(-50%);
   padding: 0.625rem;
-  display: inline-block;
-  opacity: 0.4;
-  transition: opacity 0.2s ease;
-  pointer-events: auto;
   ${props => props.direction}: -3.4375rem;
 `;
 
@@ -47,9 +38,10 @@ const NavArrow = props => {
       : "fa-chevron-right";
   const alignmentDirection =
     orientation === OrientationEnums.LEFT ? "left" : "right";
-  const navigation = OrientationEnums.LEFT
-    ? navigationEnums.BACK
-    : navigationEnums.NEXT;
+  const navigation =
+    orientation === OrientationEnums.LEFT
+      ? navigationEnums.BACK
+      : navigationEnums.NEXT;
   return (
     <ArrowLinkWrapper
       direction={alignmentDirection}

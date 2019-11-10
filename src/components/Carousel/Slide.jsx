@@ -39,10 +39,6 @@ const Slide = props => {
 
 export default Slide;
 
-Slide.defaultProps = {
-  currSlide: null
-};
-
 Slide.propTypes = {
   currSlide: propTypes.shape({
     id: propTypes.string.isRequired,
@@ -50,7 +46,7 @@ Slide.propTypes = {
     link: propTypes.string.isRequired,
     name: propTypes.string.isRequired,
     pictures: propTypes.array.isRequired
-  }),
+  }).isRequired,
   windowWidth: propTypes.number.isRequired
 };
 
