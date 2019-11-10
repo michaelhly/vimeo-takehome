@@ -1,22 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import propTypes from "prop-types";
 
 import { OrientationEnums } from "../enums";
-import { windowResizeListener } from "../helpers";
+import useWindowListener from "../hooks/windowListener";
 
 import Description from "./Description";
 
 const MediaObject = props => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const { orientation, subtext, textColor, title, videoId } = props;
+  const windowWidth = useWindowListener();
   const MOBILE_BREAKPOINT = 768;
-
-  useEffect(() => {
-    const handleWindowResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    windowResizeListener(window, handleWindowResize);
-  }, []);
 
   return (
     <div className="columns is-vcentered is-gapless">

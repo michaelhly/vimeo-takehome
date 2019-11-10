@@ -1,7 +1,9 @@
 import React from "react";
 import propTypes from "prop-types";
 
-import { truncateText } from "../helpers";
+const truncateText = (text, textLimit) => {
+  return text.length > textLimit ? `${text.substring(0, textLimit)}...` : text;
+};
 
 const Description = props => {
   const {

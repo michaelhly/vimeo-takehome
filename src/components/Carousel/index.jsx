@@ -1,8 +1,9 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useReducer } from "react";
 import propTypes from "prop-types";
 import styled from "styled-components";
 
-import { windowResizeListener } from "../../helpers";
+import { navigationEnums } from "../../enums";
+import useWindowListener from "../../hooks/windowListener";
 
 import LoadingIcon from "../LoadingIcon";
 
@@ -10,12 +11,11 @@ import { reducer, setState } from "./carouselReducer";
 import Slide from "./Slide";
 import SlideNav from "./SlideNav";
 import SlideTransition from "./SlideTransition";
-import { navigationEnums } from "../../enums";
 
 const Carousel = props => {
   const { carouselAssets } = props;
+  const windowWidth = useWindowListener();
   const [carouselState, dispatch] = useReducer(reducer, setState(0, false));
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const handleSlideTransition = navigation => {
     const totalSlides = carouselAssets.length;
@@ -24,13 +24,6 @@ const Carousel = props => {
       dispatch({ type: navigationEnums.NO_MOVE, totalSlides });
     }, 500);
   };
-
-  useEffect(() => {
-    const handleWindowResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    windowResizeListener(window, handleWindowResize);
-  }, []);
 
   const currSlide = carouselAssets[carouselState.currIndex];
 
