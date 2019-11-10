@@ -1,15 +1,24 @@
 import { navigationEnums } from "../../enums";
 
-const reducer = (currIndex, action) => {
+export const setState = (currIndex, animate) => ({
+  currIndex,
+  animate
+});
+
+export const reducer = (carouselState, action) => {
+  const { currIndex } = carouselState;
   const { type, totalSlides } = action;
+
   switch (type) {
-    case navigationEnums.NEXT:
-      return (currIndex + 1) % totalSlides;
-    case navigationEnums.BACK:
-      return (currIndex - 1 + totalSlides) % totalSlides;
+    case navigationEnums.NEXT: {
+      const newIndex = (currIndex + 1) % totalSlides;
+      return setState(newIndex, true);
+    }
+    case navigationEnums.BACK: {
+      const newIndex = (currIndex - 1 + totalSlides) % totalSlides;
+      return setState(newIndex, true);
+    }
     default:
-      return currIndex;
+      return setState(currIndex, false);
   }
 };
-
-export default reducer;

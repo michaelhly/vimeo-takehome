@@ -5,15 +5,26 @@ import styled from "styled-components";
 import { OrientationEnums, navigationEnums } from "../../enums";
 
 const SlideNav = props => {
+  const { transitionHandler } = props;
   return (
     <NavWrapper>
-      <NavArrow orientation={OrientationEnums.LEFT} slideProps={props} />
-      <NavArrow orientation={OrientationEnums.RIGHT} slideProps={props} />
+      <NavArrow
+        orientation={OrientationEnums.LEFT}
+        transitionHandler={transitionHandler}
+      />
+      <NavArrow
+        orientation={OrientationEnums.RIGHT}
+        transitionHandler={transitionHandler}
+      />
     </NavWrapper>
   );
 };
 
 export default SlideNav;
+
+SlideNav.propTypes = {
+  transitionHandler: propTypes.func.isRequired
+};
 
 const NavWrapper = styled.div`
   position: relative;
@@ -30,8 +41,7 @@ const ArrowLinkWrapper = styled.a`
 `;
 
 const NavArrow = props => {
-  const { orientation, slideProps } = props;
-  const { dispatch, totalSlides } = slideProps;
+  const { orientation, transitionHandler } = props;
   const arrowDirection =
     orientation === OrientationEnums.LEFT
       ? "fa-chevron-left"
@@ -46,7 +56,7 @@ const NavArrow = props => {
     <ArrowLinkWrapper
       direction={alignmentDirection}
       onClick={() => {
-        dispatch({ type: navigation, totalSlides });
+        transitionHandler(navigation);
       }}
     >
       <span className="icon">
@@ -58,8 +68,5 @@ const NavArrow = props => {
 
 NavArrow.propTypes = {
   orientation: propTypes.number.isRequired,
-  slideProps: propTypes.shape({
-    dispatch: propTypes.func.isRequired,
-    totalSlides: propTypes.number.isRequired
-  }).isRequired
+  transitionHandler: propTypes.func.isRequired
 };
